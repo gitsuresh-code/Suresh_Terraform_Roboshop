@@ -12,6 +12,7 @@ resource "aws_instance" "mongodb" {
     )
 }
 
+#Remote connection from Bastion to Mongo DB EC2 instance
 resource "terraform_data" "mongodb" {
   triggers_replace = [
     aws_instance.mongodb.id
