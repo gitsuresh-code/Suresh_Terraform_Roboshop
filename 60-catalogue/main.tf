@@ -127,8 +127,28 @@ resource "aws_launch_template" "catalogue" {
 
 }
 
-resource "aws_iam_service_linked_role" "autoscaling" {
-  aws_service_name = "autoscaling.amazonaws.com"
+#IAM Role creation
+resource "aws_iam_role" "admin_role" {
+      name = "MyAdminRole"
+
+      assume_role_policy = jsonencode({
+        Version = "2012-10-17"
+        Statement = [
+          {
+            Action = "sts:AssumeRole"
+            Effect = "Allow"
+            Principal = {
+              Service = "ec2.amazonaws.com" # Example: Allows EC2 instances to assume this role
+            }
+          },
+        ]
+      })
+}
+
+#Attaching adminstrator access
+resource "aws_iam_role_policy_attachment" "admin_access_attachment" {
+      role       = aws_iam_role.admin_role.name
+      policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 #creating ASG to scale up/scale down the catalogue instances based on traffic
@@ -146,8 +166,8 @@ resource "aws_autoscaling_group" "catalogue" {
   }
   vpc_zone_identifier       = local.private_subnet_ids
   target_group_arns = [aws_lb_target_group.catalogue.arn]
-  depends_on = [aws_iam_service_linked_role.autoscaling]
-  
+ 
+  depends_on = [ aws_iam_role_policy_attachment.admin_access_attachment ]
   dynamic "tag" {  # we will get the iterator with name as tag
     for_each = merge(
       local.common_tags,
