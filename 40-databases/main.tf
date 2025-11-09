@@ -125,8 +125,7 @@ resource "aws_instance" "mysql" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.mysql_sg_id]
     subnet_id = local.database_subnet_id
-    iam_instance_profile = aws_iam_instance_profile.mysql.name
-    
+       
     tags = merge (
         local.common_tags,
         {
@@ -135,10 +134,7 @@ resource "aws_instance" "mysql" {
     )
 }
 
-resource "aws_iam_instance_profile" "mysql" {
-  name = "mysql"
-  role = "EC2SSMParameterRead"
-}
+
 
 resource "terraform_data" "mysql" {
   triggers_replace = [
