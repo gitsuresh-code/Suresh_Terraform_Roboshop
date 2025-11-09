@@ -1,5 +1,5 @@
 resource "aws_lb" "frontend_alb" {
-  name               = "${local.common_name_suffix}-frontend_alb" # roboshop-dev-frontend_alb
+  name               = "${local.common_name_suffix}-frontend_alb" # roboshop-dev-frontend-alb
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.frontend_alb_sg_id]
