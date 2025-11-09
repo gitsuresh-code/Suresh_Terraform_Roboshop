@@ -24,10 +24,9 @@ variable "sg_names" {
 }
 
 variable "zone_id" {
-    default = "Z04272802545XSOGBRNOM"
+    default = "Z0948150OFPSYTNVYZOY"
 }
 
 variable "domain_name" {
-    default = "sureshdevops.fun"
+    default = "daws86s.fun"
 }
-
