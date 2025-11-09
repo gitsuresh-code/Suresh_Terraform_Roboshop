@@ -127,6 +127,10 @@ resource "aws_launch_template" "catalogue" {
 
 }
 
+resource "aws_iam_service_linked_role" "autoscaling" {
+  aws_service_name = "autoscaling.amazonaws.com"
+}
+
 #creating ASG to scale up/scale down the catalogue instances based on traffic
 resource "aws_autoscaling_group" "catalogue" {
   name                      = "${local.common_name_suffix}-catalogue"
@@ -142,6 +146,7 @@ resource "aws_autoscaling_group" "catalogue" {
   }
   vpc_zone_identifier       = local.private_subnet_ids
   target_group_arns = [aws_lb_target_group.catalogue.arn]
+  depends_on = [aws_iam_service_linked_role.autoscaling]
   
   dynamic "tag" {  # we will get the iterator with name as tag
     for_each = merge(
