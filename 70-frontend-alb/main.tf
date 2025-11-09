@@ -1,5 +1,5 @@
 resource "aws_lb" "frontend_alb" {
-  name               = "${local.common_name_suffix}-backend-alb" # roboshop-dev-backend-alb
+  name               = "${local.common_name_suffix}-frontend_alb" # roboshop-dev-frontend_alb
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.frontend_alb_sg_id]
@@ -11,7 +11,7 @@ resource "aws_lb" "frontend_alb" {
   tags = merge (
     local.common_tags,
     {
-        Name = "${local.common_name_suffix}-backend-alb"
+        Name = "${local.common_name_suffix}-frontend_alb"
     }
   )
 }
