@@ -23,3 +23,7 @@ data "aws_ssm_parameter" "mysql_sg_id" {
 data "aws_ssm_parameter" "catalogue_sg_id" {
   name = "/${var.project_name}/${var.environment}/catalogue_sg_id"
 }
+
+data "aws_ssm_parameter" "frontend_sg_id" {
+  name = "/${var.project_name}/${var.environment}/frontend_sg_id"
+}
