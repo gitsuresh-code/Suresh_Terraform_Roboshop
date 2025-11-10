@@ -18,7 +18,7 @@ resource "aws_lb" "frontend-alb" {
 
 # frontend ALB listening on port number 80
 resource "aws_lb_listener" "frontend-alb" {
-  load_balancer_arn = aws_lb.frontend-alb.arn
+  load_balancer_arn = local.frontend_alb_listener_arn
   port              = "80"
   protocol          = "HTTP"
 
