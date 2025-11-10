@@ -4,8 +4,7 @@ resource "aws_instance" "catalogue" {
     instance_type = "t3.micro"
     vpc_security_group_ids = [local.catalogue_sg_id]
     subnet_id = local.private_subnet_id
-    iam_instance_profile = aws_iam_instance_profile.ec2_instance_profile.name
-    tags = merge (
+        tags = merge (
         local.common_tags,
         {
             Name = "${local.common_name_suffix}-catalogue" # roboshop-dev-mongodb
@@ -127,10 +126,7 @@ resource "aws_launch_template" "catalogue" {
 
 }
 
-resource "aws_iam_instance_profile" "ec2_instance_profile" {
-      name = "MyAdminRole"
-      role = aws_iam_role.ec2_role.name
-}
+
 
 #creating ASG to scale up/scale down the catalogue instances based on traffic
 resource "aws_autoscaling_group" "catalogue" {
