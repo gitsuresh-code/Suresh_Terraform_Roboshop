@@ -181,7 +181,7 @@ resource "aws_autoscaling_policy" "frontend" {
 }
 
 resource "aws_lb_listener_rule" "frontend" {
-  listener_arn = local.backend_alb_listener_arn
+  listener_arn = local.frontend_alb_listener_arn
   priority     = 10
 
   action {
@@ -191,7 +191,7 @@ resource "aws_lb_listener_rule" "frontend" {
 
   condition {
     host_header {
-      values = ["frontend.backend-alb-${var.environment}.${var.domain_name}"]
+      values = ["${var.domain_name}"]
     }
   }
 }

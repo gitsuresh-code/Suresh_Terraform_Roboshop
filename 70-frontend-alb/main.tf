@@ -3,7 +3,7 @@ resource "aws_lb" "frontend-alb" {
   internal           = true
   load_balancer_type = "application"
   security_groups    = [local.frontend_alb_sg_id]
-  # it should be private subnet ids
+  # public subnet id
   subnets            = local.public_subnet_ids
 
   enable_deletion_protection = false # prevents accidental deletion from UI
@@ -16,7 +16,7 @@ resource "aws_lb" "frontend-alb" {
   )
 }
 
-# Backend ALB listening on port number 80
+# frontend ALB listening on port number 80
 resource "aws_lb_listener" "frontend-alb" {
   load_balancer_arn = aws_lb.frontend-alb.arn
   port              = "80"
@@ -27,7 +27,7 @@ resource "aws_lb_listener" "frontend-alb" {
 
     fixed_response {
       content_type = "text/plain"
-      message_body = "Hi, I am from backend ALB HTTP"
+      message_body = "Hi, I am from frontend ALB HTTP"
       status_code  = "200"
     }
   }
