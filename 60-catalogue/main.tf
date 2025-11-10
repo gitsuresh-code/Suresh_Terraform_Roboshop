@@ -144,7 +144,7 @@ resource "aws_autoscaling_group" "catalogue" {
   vpc_zone_identifier       = local.private_subnet_ids
   target_group_arns = [aws_lb_target_group.catalogue.arn]
  
-  depends_on = [ aws_iam_instance_profile.ec2_instance_profile ]
+  
   dynamic "tag" {  # we will get the iterator with name as tag
     for_each = merge(
       local.common_tags,
