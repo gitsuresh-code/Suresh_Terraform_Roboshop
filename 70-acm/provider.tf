@@ -1,3 +1,4 @@
+
 terraform {
   required_providers {
     aws = {
@@ -8,7 +9,7 @@ terraform {
 
   backend "s3" {
     bucket = "roboshop-dev-suresh"
-    key    = "roboshop-dev-catalogue"
+    key    = "roboshop-dev-acm"
     region = "us-east-1"
     use_lockfile = true
     encrypt = true
